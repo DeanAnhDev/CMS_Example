@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
     <div class="max-w-6xl mx-auto py-10 px-4">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Danh sách danh mục</h1>
@@ -51,4 +49,4 @@
             {{ $categories->links() }}
         </div>
     </div>
-@endsection
+</x-app-layout>

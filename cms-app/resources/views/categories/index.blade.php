@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-6xl mx-auto py-10 px-4">
+    <div class="max-w-7xl mx-auto py-10 px-4">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Danh sách danh mục</h1>
             <a href="{{ route('categories.create') }}"
@@ -22,6 +22,8 @@
                     <th class="px-4 py-2 border-r">Tên</th>
                     <th class="px-4 py-2 border-r">Slug</th>
                     <th class="px-4 py-2">Thao tác</th>
+                    <th class="px-4 py-2">Ngày tạo</th>
+                    <th class="px-4 py-2">Ngày sửa</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,6 +32,8 @@
                         <td class="px-4 py-2 border-r">{{ $cat->id }}</td>
                         <td class="px-4 py-2 border-r">{{ $cat->name }}</td>
                         <td class="px-4 py-2 border-r">{{ $cat->slug }}</td>
+                        <td>{{ $cat->create_at ? $cat->create_at->format('d/m/Y H:i') : '' }}</td>
+                        <td>{{ $cat->update_at ? $cat->update_at->format('d/m/Y H:i') : '' }}</td>
                         <td class="px-4 py-2 flex space-x-2">
                             <a href="{{ route('categories.edit', $cat) }}"
                                class="text-blue-600 hover:underline">Sửa</a>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
+    <div class="max-w-7xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
         <h1 class="text-2xl font-semibold mb-6 text-center">Thêm danh mục</h1>
 
         <form action="{{ route('categories.store') }}" method="POST" class="space-y-5">

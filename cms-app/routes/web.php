@@ -20,7 +20,11 @@ Route::get('/dashboard', function () {
 
 Route::get('/hello', function () {
     return view('hello');
-})->middleware(['auth', 'verified', CheckRole::class . ':viewer'])->name('client.hello');
+})->middleware(['auth', 'verified'])->name('client.hello');
+
+Route::get('/home', function () {
+    return view('client.home');
+});
 
 
 

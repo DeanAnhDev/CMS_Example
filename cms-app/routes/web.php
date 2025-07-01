@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CkeditorController;
+use App\Http\Controllers\CrawlController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/hello', function () {
+    return view('hello');
+})->middleware(['auth', 'verified', CheckRole::class . ':viewer'])->name('client.hello');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,9 +49,6 @@ Route::middleware([
     Route::get('categories', [CategoriesController::class, 'index'])->name('categories.index');
 });
 
-
-
-
 //articles
 
 Route::middleware([
@@ -60,6 +65,11 @@ Route::middleware([
     Route::get('articles', [ArticlesController::class, 'index'])->name('articles.index');
     Route::get('articles/create', [ArticlesController::class, 'create'])->name('articles.create');
     Route::post('articles', [ArticlesController::class, 'store'])->name('articles.store');
+
+    //api crawl
+    Route::get('/crawl-article', [CrawlController::class, 'crawlArticle']);
+
+
 });
 
 //upload

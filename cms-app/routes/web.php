@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\CrawlController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
@@ -22,11 +23,13 @@ Route::get('/hello', function () {
     return view('hello');
 })->middleware(['auth', 'verified'])->name('client.hello');
 
-Route::get('/home', function () {
-    return view('client.home');
-});
+//Route::get('/home', function () {
+//    return view('client.home');
+//});
 
-
+//home
+Route::get('/home', [HomeController::class, 'index'])->name('client.home');
+Route::get('/tin-tuc/bai-viet/{slug}', [HomeController::class, 'show'])->name('client.article.show');
 
 
 Route::middleware('auth')->group(function () {
@@ -69,9 +72,9 @@ Route::middleware([
     Route::get('articles', [ArticlesController::class, 'index'])->name('articles.index');
     Route::get('articles/create', [ArticlesController::class, 'create'])->name('articles.create');
     Route::post('articles', [ArticlesController::class, 'store'])->name('articles.store');
-
     //api crawl
     Route::get('/crawl-article', [CrawlController::class, 'crawlArticle']);
+
 
 
 });
@@ -84,5 +87,6 @@ Route::post('/ckeditor/upload', [CkeditorController::class, 'upload'])
         CheckRole::class . ':admin'
     ])
     ->name('ckeditor.upload');
+
 
 require __DIR__.'/auth.php';

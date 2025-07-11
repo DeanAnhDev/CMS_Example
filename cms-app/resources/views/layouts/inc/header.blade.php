@@ -1,6 +1,6 @@
 <header>
     <div
-            class="header flex justify-between items-center p-6 fixed top-0 left-0 right-0 bg-white z-10 shadow-md"
+            class=" flex justify-between items-center p-6 fixed top-0 left-0 right-0 bg-white z-10 shadow-md"
     >
         <div class="flex items-center space-x-4">
 
@@ -73,6 +73,7 @@
         </div>
     </div>
 
+
     <div id="mobile-menu" class="fixed inset-0 bg-white z-50 xl:hidden hidden">
         <!-- Nút đóng -->
         <div class="mt-5 p-3 flex items-center space-x-2">
@@ -126,8 +127,8 @@
             </div>
         </div>
     </div>
-</header>
 
+    </header>
 <script>
     function toggleMenu() {
         const menu = document.getElementById('mobile-menu');

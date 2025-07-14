@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <header>
     <div
             class=" flex justify-between items-center p-6 fixed top-0 left-0 right-0 bg-white z-10 shadow-md"
@@ -67,13 +68,53 @@
                 />
             </svg>
 
-            <div class="hidden lg:block cursor-pointer">
+            @php
+                $user = Auth::user();
+            @endphp
+
+            <div class="relative hidden lg:flex items-center gap-3" x-data="{ open: false }">
+                <!-- Thông tin user -->
                 <div class="flex flex-col items-end">
-                    <span class="text-[#272727] font-semibold text-sm"> Quang Anh Tran </span>
-                    <p class="text-[#272727] font-normal text-sm">Tư vấn</p>
+                    <span class="text-[#272727] font-semibold text-sm"> {{ $user->name }} </span>
+                    <p class="text-[#272727] font-normal text-sm">{{ ucfirst($user->role) }}</p>
+                </div>
+
+                <!-- Icon user -->
+                <button @click="open = !open" class="focus:outline-none">
+                    <x-user-icon class="w-8 h-8 text-[#007882]" />
+                </button>
+
+                <!-- Dropdown -->
+                <div
+                    x-show="open"
+                    @click.away="open = false"
+                    x-transition
+                    class="absolute right-0 top-12 w-56 bg-white shadow-xl rounded-lg border border-gray-200 z-50"
+                >
+                    <!-- Header -->
+                    <div class="px-4 py-3 border-b text-sm text-gray-800 font-semibold">
+                        👋 Xin chào, {{ $user->name }}
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="py-2">
+                        <a href="{{ route('profile.edit') }}"
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150">
+                            📄 Thông tin tài khoản
+                        </a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                    class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all duration-150">
+                                🚪 Đăng xuất
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <x-user-icon class="cursor-pointer" />
+
+
         </div>
     </div>
 

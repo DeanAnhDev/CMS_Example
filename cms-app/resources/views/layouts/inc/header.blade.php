@@ -40,11 +40,15 @@
                 ReviewNhà
             </h1>
         </div>
-        <h1
+        <a href="{{ route('client.home') }}">
+            <h1
                 class="text-primary-black font-header-custom font-semibold text-2xl hidden xl:block cursor-pointer"
-        >
-            *ReviewNhà
-        </h1>
+            >
+                *ReviewNhà
+            </h1>
+        </a>
+
+
         <div class="flex items-center space-x-4">
             <x-notification-icon class="xl:hidden cursor-pointer" />
             <x-heart-icon class="cursor-pointer" />

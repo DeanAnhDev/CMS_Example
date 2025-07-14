@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\ClientArticleController as ClientArticleControllerAlias;
+use App\Http\Controllers\ClientCategoryController;
 use App\Http\Controllers\CrawlController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -31,7 +32,8 @@ Route::get('/hello', function () {
 //home
 Route::get('/home', [HomeController::class, 'index'])->name('client.home');
 Route::get('/bai-viet/{slug}', [ClientArticleControllerAlias::class, 'show'])->name('client.detail');
-Route::get('/category/{slug}', [CategoriesController::class, 'show'])->name('client.category.show');
+Route::get('/chuyen-muc/{slug}', [ClientCategoryController::class, 'show'])->name('client.category.show');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

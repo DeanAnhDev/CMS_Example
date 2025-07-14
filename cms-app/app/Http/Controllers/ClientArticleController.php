@@ -14,10 +14,16 @@ class ClientArticleController extends Controller
             ->where('id', '!=', $article->id)
             ->where('status', 'published')
             ->latest()
-            ->take(4)
+            ->take(2)
             ->get();
 
-        return view('client.detail', compact('article', 'relatedArticles'));
+        $trendingArticles = Articles::where('id', '!=', $article->id)
+            ->where('status', 'published')
+            ->orderBy('views', 'desc')
+            ->take(2)
+            ->get();
+
+        return view('client.detail', compact('article', 'relatedArticles', 'trendingArticles'));
     }
 
 }

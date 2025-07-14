@@ -21,9 +21,10 @@
                     <th class="px-4 py-2 border-r">#</th>
                     <th class="px-4 py-2 border-r">Tên</th>
                     <th class="px-4 py-2 border-r">Slug</th>
-                    <th class="px-4 py-2">Thao tác</th>
+
                     <th class="px-4 py-2">Ngày tạo</th>
                     <th class="px-4 py-2">Ngày sửa</th>
+                    <th class="px-4 py-2">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,8 +33,8 @@
                         <td class="px-4 py-2 border-r">{{ $cat->id }}</td>
                         <td class="px-4 py-2 border-r">{{ $cat->name }}</td>
                         <td class="px-4 py-2 border-r">{{ $cat->slug }}</td>
-                        <td>{{ $cat->create_at ? $cat->create_at->format('d/m/Y H:i') : '' }}</td>
-                        <td>{{ $cat->update_at ? $cat->update_at->format('d/m/Y H:i') : '' }}</td>
+                        <td>{{ $cat->created_at ? $cat->created_at->format('d/m/Y H:i') : '' }}</td>
+                        <td>{{ $cat->updated_at ? $cat->updated_at->format('d/m/Y H:i') : '' }}</td>
                         <td class="px-4 py-2 flex space-x-2">
                             <a href="{{ route('categories.edit', $cat) }}"
                                class="text-blue-600 hover:underline">Sửa</a>

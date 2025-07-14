@@ -25,14 +25,14 @@ Route::get('/hello', function () {
     return view('hello');
 })->middleware(['auth', 'verified'])->name('client.hello');
 
-//Route::get('/home', function () {
-//    return view('client.home');
-//});
 
-//home
-Route::get('/home', [HomeController::class, 'index'])->name('client.home');
-Route::get('/bai-viet/{slug}', [ClientArticleControllerAlias::class, 'show'])->name('client.detail');
-Route::get('/chuyen-muc/{slug}', [ClientCategoryController::class, 'show'])->name('client.category.show');
+
+Route::middleware('auth')->group(function () {
+    //home
+    Route::get('/home', [HomeController::class, 'index'])->name('client.home');
+    Route::get('/bai-viet/{slug}', [ClientArticleControllerAlias::class, 'show'])->name('client.detail');
+    Route::get('/chuyen-muc/{slug}', [ClientCategoryController::class, 'show'])->name('client.category.show');
+});
 
 
 Route::middleware('auth')->group(function () {

@@ -9,7 +9,7 @@
         @if($news->count())
             @php $first = $news->first(); @endphp
             <div class="relative w-full mb-4 col-span-12 lg:col-span-8 lg:col-start-1">
-                <a href="{{ route('client.article.show', $first->slug) }}">
+                <a href="{{ route('client.detail', $first->slug) }}">
                     <img src="{{ asset('storage/' . $first->thumbnail) }}" class="w-full h-auto rounded-md object-cover" />
                     <div class="absolute top-4 right-4">
                         <svg class="w-6 h-6"><!-- heart icon --></svg>
@@ -32,7 +32,7 @@
         <!-- các bài còn lại -->
         <div class="col-span-12 lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
             @foreach($news->skip(1) as $news)
-                <a href="{{ route('client.article.show', $news->slug) }}">
+                <a href="{{ route('client.detail', $news->slug) }}">
                     <div class="relative w-full mb-4">
                         <img src="{{ asset('storage/' . $news->thumbnail) }}" class="w-full h-auto rounded-md object-cover" />
                         <div class="absolute top-4 right-4">

@@ -11,8 +11,8 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Categories::all();
-        $articles = Articles::latest()->paginate(10);
-        $news  = Articles::latest()->take(3)->get();
+        $articles = Articles::where('status', 'published')->latest()->paginate(10);
+        $news = Articles::where('status', 'published')->latest()->take(3)->get();
         return view('client.home', compact('categories', 'articles', 'news'));
     }
 }

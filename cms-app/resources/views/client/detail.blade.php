@@ -121,8 +121,64 @@
                     </div>
                 </a>
             @endforeach
-        </section>
 
-        
+            {{-- Tin thịnh hành --}}
+            <div class="flex justify-between items-center gap-2 my-6">
+                <div class="flex items-center gap-2">
+                    <h2 class="text-sm/[21px] font-semibold text-[#3B4144]">Tin thịnh hành</h2>
+                </div>
+                <div>
+                    <span class="hidden md:block text-sm/[21px] font-semibold text-[#3B4144] cursor-pointer">Xem tất cả</span>
+                </div>
+            </div>
+
+
+            @foreach ($trendingArticles as $item)
+                <a href="{{ route('client.detail', $item->slug) }}" class="block mx-auto mb-5 xl:w-[1024px] cursor-pointer hover:opacity-90 transition">
+                    <!-- mobile -->
+                    <div class="block md:hidden">
+                        <h2 class="line-clamp-2 text-sm/[21px] font-bold text-[#3B4144] mt-2">
+                            {{ $item->title }}
+                        </h2>
+                        <div class="flex items-center gap-2 my-1">
+                            <h3 class="text-sm/[20px] font-semibold text-[#007882]">{{ $item->category->name ?? 'Danh mục' }}</h3>
+                            <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>
+                            <p class="text-xs">{{ $item->author->name ?? 'Tác giả' }}</p>
+                            <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>
+                            <p class="text-xs">{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</p>
+                        </div>
+                    </div>
+
+                    <!-- desktop -->
+                    <div class="w-full mb-4">
+                        <div class="relative grid grid-cols-12 gap-4 items-start">
+                            <div class="col-span-5 lg:col-span-4 relative">
+                                <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" class="w-full object-cover h-[180px]" />
+                            </div>
+                            <div class="col-span-7 lg:col-span-8 ml-2">
+                                <div class="hidden md:block">
+                                    <h2 class="line-clamp-2 text-lg/[21px] font-bold text-[#3B4144] mt-2 lg:text-lg/[27px]">
+                                        {{ $item->title }}
+                                    </h2>
+                                    <div class="flex items-center gap-2 my-1">
+                                        <h3 class="text-sm/[27px] font-semibold text-[#007882]">{{ $item->category->name ?? 'Danh mục' }}</h3>
+                                        <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>
+                                        <p class="text-xs">{{ $item->author->name ?? 'Tác giả' }}</p>
+                                        <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>
+                                        <p class="text-xs">{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="line-clamp-4 text-sm/[21px] text-[#3B4144] font-normal lg:text-base/[28px]">
+                                        {{ \Str::limit(strip_tags($item->content), 180) }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+
+        </section>
     </div>
 @endsection

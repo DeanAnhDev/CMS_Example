@@ -56,3 +56,9 @@ npm run dev
 php artisan serve
 
 ```
+
+### 8. Crawl
+```bash 
+php artisan crawl:dantri   
+
+```

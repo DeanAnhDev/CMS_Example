@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Articles;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -79,4 +80,23 @@ class CategoriesController extends Controller
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
     }
+
+
+
+
+    public function showDetail($slug)
+    {
+
+        $category = Categories::where('slug', $slug)->firstOrFail();
+
+        $articles = Articles::with(['category', 'author'])
+            ->where('category_id', $category->id)
+            ->where('status', 'published')
+            ->latest()
+            ->paginate(10);
+
+        return view('client.categorydetail', compact('category', 'articles'));
+    }
+
+
 }

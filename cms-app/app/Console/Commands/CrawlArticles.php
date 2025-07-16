@@ -112,7 +112,7 @@ class CrawlArticles extends Command
                 'excerpt'            => $excerpt,
                 'thumbnail'          => $thumbnail,
                 'content'            => $content,
-                'author_id'          => 1,
+                'author_id' => auth()->id() ?? 1,
                 'status'             => 'published',
             ]);
 

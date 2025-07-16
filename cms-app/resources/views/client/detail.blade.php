@@ -28,7 +28,7 @@
                 <div class="flex items-center gap-2">
                     <span class="hidden md:block text-sm font-semibold text-[#3B4144]">Chuyên mục:</span>
                     <div class="text-sm font-semibold px-8 py-1 border border-2 border-[#007882] rounded-full text-white bg-[#007882]">
-                        {{ $article->category->name ?? 'Không rõ' }}
+                        {{ $article->categoryDetail->name ?? 'Không rõ' }}
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
             {{-- Thông tin meta --}}
             <div class="md:flex justify-between items-center gap-2 my-4">
                 <div class="flex items-center gap-2 my-4">
-                    <h3 class="text-base font-semibold text-[#007882]">{{ $article->category->name ?? '' }}</h3>
+                    <h3 class="text-base font-semibold text-[#007882]">{{ $article->categoryDetail->name ?? '' }}</h3>
                     <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
                     <p class="text-xs">{{ $article->author->name ?? 'Admin' }}</p>
                     <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
@@ -92,7 +92,7 @@
                 <div class="flex items-center gap-2">
                     <h2 class="text-sm font-semibold text-[#3B4144]">Tin cùng chuyên mục</h2>
                     <div class="text-sm font-semibold px-8 py-1 border-2 border-[#007882] rounded-full text-white bg-[#007882]">
-                        {{ $article->category->name ?? '' }}
+                        {{ $article->categoryDetail->name ?? '' }}
                     </div>
                 </div>
                 <a href="{{ route('client.home') }}" class="text-sm font-semibold text-[#3B4144]">Xem tất cả</a>
@@ -108,7 +108,7 @@
                         <div class="col-span-7 lg:col-span-8 ml-2">
                             <h2 class="line-clamp-2 text-lg font-bold text-[#3B4144]">{{ $item->title }}</h2>
                             <div class="flex items-center gap-2 my-1">
-                                <h3 class="text-sm font-semibold text-[#007882]">{{ $item->category->name ?? '' }}</h3>
+                                <h3 class="text-sm font-semibold text-[#007882]">{{ $item->categoryDetail->name ?? '' }}</h3>
                                 <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
                                 <p class="text-xs">{{ $item->author->name ?? 'Admin' }}</p>
                                 <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
@@ -141,7 +141,7 @@
                             {{ $item->title }}
                         </h2>
                         <div class="flex items-center gap-2 my-1">
-                            <h3 class="text-sm/[20px] font-semibold text-[#007882]">{{ $item->category->name ?? 'Danh mục' }}</h3>
+                            <h3 class="text-sm/[20px] font-semibold text-[#007882]">{{ $item->categoryDetail->name ?? 'Danh mục' }}</h3>
                             <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>
                             <p class="text-xs">{{ $item->author->name ?? 'Tác giả' }}</p>
                             <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>
@@ -161,7 +161,7 @@
                                         {{ $item->title }}
                                     </h2>
                                     <div class="flex items-center gap-2 my-1">
-                                        <h3 class="text-sm/[27px] font-semibold text-[#007882]">{{ $item->category->name ?? 'Danh mục' }}</h3>
+                                        <h3 class="text-sm/[27px] font-semibold text-[#007882]">{{ $item->categoryDetail->name ?? 'Danh mục' }}</h3>
                                         <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>
                                         <p class="text-xs">{{ $item->author->name ?? 'Tác giả' }}</p>
                                         <svg width="3" height="4" viewBox="0 0 3 4" fill="none"><circle cx="1.5" cy="1.56641" r="1.5" fill="#3B4144" /></svg>

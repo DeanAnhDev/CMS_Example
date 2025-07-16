@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('slug', 255)->unique();
             $table->longText('content'); // HTML nội dung
             $table->string('thumbnail', 255)->nullable(); // ảnh đại diện
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('category_detail_id')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             $table->integer('views')->default(0);
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();
+            $table->foreign('category_detail_id')->references('id')->on('category_detail')->nullOnDelete();
             $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }

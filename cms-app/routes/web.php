@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryDetailController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\ClientArticleController as ClientArticleControllerAlias;
 use App\Http\Controllers\ClientCategoryController;
@@ -57,6 +58,15 @@ Route::middleware([
     Route::put('categories/{category:slug}', [CategoriesController::class, 'update'])->name('categories.update');
     Route::delete('categories/{category:slug}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
     Route::get('categories', [CategoriesController::class, 'index'])->name('categories.index');
+});
+
+//Category detail
+Route::middleware([
+    'auth',
+    'verified',
+    CheckRole::class . ':admin'
+])->group(function () {
+    Route::resource('category_detail', CategoryDetailController::class);
 });
 
 //articles

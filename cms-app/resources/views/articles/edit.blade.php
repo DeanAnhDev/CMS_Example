@@ -3,24 +3,40 @@
         <h1 class="text-2xl font-semibold mb-6 text-center">Sửa bài viết</h1>
 
         <form action="{{ route('articles.update', $article) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
-
-        @csrf
+            @csrf
             @method('PUT')
 
-
             <x-form.input name="title" label="Tiêu đề" :value="old('title',  $article->title)" />
-            <x-form.select name="category_id" label="Danh mục" :options="$categories" :selected="old('category_id',  $article->category_id)" />
-            <div>
-                <label>Ảnh hiện tại</label>
-                <img src="{{ asset('storage/' . $article->thumbnail) }}"  alt="Ảnh" class="w-100 h-auto rounded m-auto pt-4" >
+
+            {{-- THAY ĐỔI: category_detail_id --}}
+            <div class="space-y-2">
+                <label for="category_detail_id" class="block font-medium text-gray-700">Danh mục chi tiết</label>
+                <select name="category_detail_id" id="category_detail_id"
+                        class="w-full border border-gray-300 rounded p-2">
+                    <option value="">-- Chọn danh mục --</option>
+                    @foreach ($categoryDetails as $detail)
+                        <option value="{{ $detail->id }}"
+                            {{ old('category_detail_id', $article->category_detail_id) == $detail->id ? 'selected' : '' }}>
+                            {{ $detail->name }} ({{ $detail->category->name ?? 'Không có danh mục' }})
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_detail_id')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
-            <x-form.file name="thumbnail"  label="Chọn ảnh mới"/>
+            <div>
+                <label>Ảnh hiện tại</label>
+                <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="Ảnh" class="w-100 h-auto rounded m-auto pt-4">
+            </div>
+
+            <x-form.file name="thumbnail" label="Chọn ảnh mới" />
 
             <div class="space-y-2">
                 <label for="source_url" class="block font-medium text-gray-700">URL bài viết gốc</label>
                 <div class="flex space-x-2">
-                    <input type="text" id="source_url" class="w-full border border-gray-300 rounded p-2"
+                    <input type="text" id="source_url" name="source_url" class="w-full border border-gray-300 rounded p-2"
                            placeholder="https://..." value="{{ old('source_url', $article->source_url ?? '') }}" />
                     <button type="button" onclick="crawlArticle()" class="border border-gray-300 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
                         Tải từ URL
@@ -37,8 +53,9 @@
                 @enderror
             </div>
 
-
-            <x-form.select name="status" label="Trạng thái" :options="['draft'=>'Nháp','published'=>'Công khai','archived'=>'Lưu trữ']" :selected="old('status', $article->status)" />
+            <x-form.select name="status" label="Trạng thái"
+                           :options="['draft'=>'Nháp','published'=>'Công khai','archived'=>'Lưu trữ']"
+                           :selected="old('status', $article->status)" />
 
             <div class="flex justify-between mt-6">
                 <a href="{{ route('articles.index') }}" class="bg-gray-300 hover:bg-gray-400 text-black font-semibold px-6 py-2 rounded-md shadow-md">
@@ -61,7 +78,6 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.error) return alert(data.error);
-                    console.log(data);
                     document.getElementById('content').innerHTML = data.html || data.error || 'Không có nội dung';
                 })
                 .catch(err => {
@@ -69,9 +85,5 @@
                     alert("Lỗi khi tải nội dung.");
                 });
         }
-
     </script>
-
-
-
 </x-app-layout>

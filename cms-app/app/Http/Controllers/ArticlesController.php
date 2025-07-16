@@ -3,36 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Articles;
-use App\Models\Categories;
+use App\Models\CategoryDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ArticlesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index() {
-        $articles = Articles::with('category', 'author')->latest()->paginate(10);
+    public function index()
+    {
+        $articles = Articles::with('categoryDetail', 'author')->latest()->paginate(10);
         return view('articles.index', compact('articles'));
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create() {
-        $categories = Categories::pluck('name', 'id')->toArray();
-        return view('articles.create', compact('categories'));
+
+    public function create()
+    {
+        $categoryDetails = CategoryDetail::with('category')->get();
+        return view('articles.create', compact('categoryDetails'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $data = $request->validate([
             'title' => 'required|string|max:500',
             'content' => 'required',
             'thumbnail' => 'required|image',
-            'category_id' => 'required|exists:categories,id',
+            'category_detail_id' => 'required|exists:category_detail,id',
             'status' => 'required|in:draft,published,archived',
         ]);
 
@@ -48,13 +43,13 @@ class ArticlesController extends Controller
         return redirect()->route('articles.index')->with('success', 'Tạo bài viết thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($slug)
     {
-        $article = Articles::where('slug', $slug)->with(['category', 'author'])->firstOrFail();
-        $relatedArticles = Articles::where('category_id', $article->category_id)
+        $article = Articles::where('slug', $slug)
+            ->with(['categoryDetail.category', 'author'])
+            ->firstOrFail();
+
+        $relatedArticles = Articles::where('category_detail_id', $article->category_detail_id)
             ->where('id', '!=', $article->id)
             ->where('status', 'published')
             ->latest()
@@ -70,24 +65,19 @@ class ArticlesController extends Controller
         return view('client.detail', compact('article', 'relatedArticles', 'trendingArticles'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Articles $article) {
-        $categories = Categories::pluck('name', 'id')->toArray();
-        return view('articles.edit', compact('article', 'categories'));
+    public function edit(Articles $article)
+    {
+        $categoryDetails = CategoryDetail::with('category')->get();
+        return view('articles.edit', compact('article', 'categoryDetails'));
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Articles $article) {
+    public function update(Request $request, Articles $article)
+    {
         $data = $request->validate([
             'title' => 'required|string|max:500',
             'content' => 'required',
             'thumbnail' => 'nullable|image',
-            'category_id' => 'required|exists:categories,id',
+            'category_detail_id' => 'required|exists:category_detail,id',
             'status' => 'required|in:draft,published,archived',
         ]);
 
@@ -102,10 +92,8 @@ class ArticlesController extends Controller
         return redirect()->route('articles.index')->with('success', 'Cập nhật bài viết thành công!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Articles $article) {
+    public function destroy(Articles $article)
+    {
         $article->delete();
 
         return redirect()->route('articles.index')->with('success', 'Xóa bài viết thành công!');

@@ -38,14 +38,12 @@
                         <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="Ảnh" class="w-20 h-auto rounded">
                     </td>
                     <td class="p-4">
-                        {{ $article->category->name ?? 'Không có danh mục' }}
+                        {{ $article->categoryDetail->name ?? 'Không có danh mục' }}
                     </td>
-
-                    <td class="p-4">{{ ucfirst($article->status) }}</td>
+                    <td class="p-4 capitalize">{{ $article->status }}</td>
                     <td class="p-4">{{ $article->views }}</td>
-                    <td>{{ $article->created_at ? $article->created_at->format('d/m/Y H:i') : '' }}</td>
-                    <td>{{ $article->updated_at ? $article->updated_at->format('d/m/Y H:i') : '' }}</td>
-
+                    <td class="p-4">{{ $article->created_at?->format('d/m/Y H:i') }}</td>
+                    <td class="p-4">{{ $article->updated_at?->format('d/m/Y H:i') }}</td>
                     <td class="p-4 flex gap-2">
                         <a href="{{ route('articles.edit', $article->slug) }}" class="text-blue-600 hover:underline">Sửa</a>
                         <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Xóa bài viết?')">
@@ -53,15 +51,10 @@
                             <button class="text-red-600 hover:underline" type="submit">Xóa</button>
                         </form>
                     </td>
-
-
                 </tr>
             @endforeach
             </tbody>
-        </table>
 
-        <div class="mt-6">
-            {{ $articles->links() }}
-        </div>
+        </table>
     </div>
 </x-app-layout>

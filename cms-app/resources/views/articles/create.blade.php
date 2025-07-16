@@ -7,7 +7,22 @@
 
             <x-form.input name="title" label="Tiêu đề" :value="old('title')" />
 
-            <x-form.select name="category_id" label="Danh mục" :options="$categories" :selected="old('category_id')" />
+            {{-- CHỈNH SỬA: category_detail_id --}}
+            <div class="space-y-2">
+                <label for="category_detail_id" class="block font-medium text-gray-700">Danh mục chi tiết</label>
+                <select name="category_detail_id" id="category_detail_id"
+                        class="w-full border border-gray-300 rounded p-2">
+                    <option value="">-- Chọn danh mục --</option>
+                    @foreach ($categoryDetails as $detail)
+                        <option value="{{ $detail->id }}" {{ old('category_detail_id') == $detail->id ? 'selected' : '' }}>
+                            {{ $detail->name }} ({{ $detail->category->name ?? 'Không có danh mục' }})
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_detail_id')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
             <x-form.file name="thumbnail" label="Ảnh đại diện" />
 
@@ -15,7 +30,7 @@
                 <label for="source_url" class="block font-medium text-gray-700">URL bài viết gốc</label>
                 <div class="flex space-x-2">
                     <input type="text" id="source_url" class="w-full border border-gray-300 rounded p-2" placeholder="https://..." />
-                    <button type="button" onclick="crawlArticle()" class="border border-gray-300 rounded bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                    <button type="button" onclick="crawlArticle()" class="border border-gray-300 rounded bg-green-600 hover:bg-green-700 text-white px-4 py-2">
                         Tải từ URL
                     </button>
                 </div>
@@ -29,7 +44,6 @@
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
 
             <x-form.select name="status" label="Trạng thái" :options="['draft'=>'Nháp','published'=>'Công khai','archived'=>'Lưu trữ']" :selected="old('status','draft')" />
 
@@ -45,7 +59,6 @@
         </form>
     </div>
 
-
     <script>
         function crawlArticle() {
             const url = document.getElementById('source_url').value;
@@ -55,7 +68,6 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.error) return alert(data.error);
-                    console.log(data);
                     document.getElementById('content').innerHTML = data.html || data.error || 'Không có nội dung';
                 })
                 .catch(err => {
@@ -63,7 +75,5 @@
                     alert("Lỗi khi tải nội dung.");
                 });
         }
-
     </script>
-
 </x-app-layout>

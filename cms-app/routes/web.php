@@ -87,6 +87,7 @@ Route::middleware([
     Route::post('articles', [ArticlesController::class, 'store'])->name('articles.store');
     //api crawl
     Route::get('/crawl-article', [CrawlController::class, 'crawlArticle']);
+    Route::get('/articles/{article:slug}', [ArticlesController::class, 'showDetail'])->name('articles.show');
 
 
 

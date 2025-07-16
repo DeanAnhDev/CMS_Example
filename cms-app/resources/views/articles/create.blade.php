@@ -29,12 +29,23 @@
             <div class="space-y-2">
                 <label for="source_url" class="block font-medium text-gray-700">URL bài viết gốc</label>
                 <div class="flex space-x-2">
-                    <input type="text" id="source_url" class="w-full border border-gray-300 rounded p-2" placeholder="https://..." />
-                    <button type="button" onclick="crawlArticle()" class="border border-gray-300 rounded bg-green-600 hover:bg-green-700 text-white px-4 py-2">
+                    <input type="text"
+                           id="source_url"
+                           name="source_url"
+                           value="{{ old('source_url') }}"
+                           placeholder="https://..."
+                           class="w-full border border-gray-300 rounded p-2"
+                        {{ old('content') ? 'readonly' : '' }} />
+
+                    <button type="button"
+                            onclick="crawlArticle()"
+                            id="crawlBtn"
+                            class="border border-gray-300 rounded bg-green-600 hover:bg-green-700 text-white px-4 py-2">
                         Tải từ URL
                     </button>
                 </div>
             </div>
+
 
             <div class="space-y-2">
                 <label for="content" class="block text-sm font-medium text-gray-700">Nội dung</label>
@@ -61,14 +72,23 @@
 
     <script>
         function crawlArticle() {
-            const url = document.getElementById('source_url').value;
-            if (!url) return alert("Vui lòng nhập URL bài viết.");
+            const urlInput = document.getElementById('source_url');
+            const contentTextarea = document.getElementById('content');
 
-            fetch(`/crawl-article?url=${encodeURIComponent(url)}`)
+            if (!urlInput.value) {
+                alert("Vui lòng nhập URL bài viết.");
+                return;
+            }
+
+            fetch(`/crawl-article?url=${encodeURIComponent(urlInput.value)}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.error) return alert(data.error);
-                    document.getElementById('content').innerHTML = data.html || data.error || 'Không có nội dung';
+
+                    contentTextarea.value = data.html || 'Không có nội dung';
+                    contentTextarea.setAttribute('readonly', true); // Khóa textarea sau khi tải
+                    urlInput.setAttribute('readonly', true); // Khóa input URL
+                    document.getElementById('crawlBtn').disabled = true; // Disable button
                 })
                 .catch(err => {
                     console.error(err);
@@ -76,4 +96,6 @@
                 });
         }
     </script>
+
+
 </x-app-layout>

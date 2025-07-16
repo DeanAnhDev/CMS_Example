@@ -98,4 +98,10 @@ class ArticlesController extends Controller
 
         return redirect()->route('articles.index')->with('success', 'Xóa bài viết thành công!');
     }
+
+    public function showDetail(Articles $article)
+    {
+        return view('articles.show', compact('article'));
+    }
+
 }

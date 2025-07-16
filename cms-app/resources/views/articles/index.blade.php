@@ -45,6 +45,7 @@
                     <td class="p-4">{{ $article->created_at?->format('d/m/Y H:i') }}</td>
                     <td class="p-4">{{ $article->updated_at?->format('d/m/Y H:i') }}</td>
                     <td class="p-4 flex gap-2">
+                        <a href="{{ route('articles.show', $article->slug) }}" class="text-blue-600 hover:underline">Xem</a>
                         <a href="{{ route('articles.edit', $article->slug) }}" class="text-blue-600 hover:underline">Sửa</a>
                         <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Xóa bài viết?')">
                             @csrf @method('DELETE')

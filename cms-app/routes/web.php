@@ -30,7 +30,7 @@ Route::get('/hello', function () {
 
 Route::middleware('auth')->group(function () {
     //home
-    Route::get('/home', [HomeController::class, 'index'])->name('client.home');
+    Route::get('/home', [ArticlesController::class, 'home'])->name('client.home');
     Route::get('/bai-viet/{slug}', [ArticlesController::class, 'show'])->name('client.detail');
     Route::get('/chuyen-muc/{slug}', [CategoriesController::class, 'showDetail'])->name('client.category.show');
 });

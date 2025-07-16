@@ -17,7 +17,7 @@
                     <div>
                         <h2 class="line-clamp-2 text-sm/[21px] font-bold text-[#3B4144] mt-2 lg:text-lg/[27px]">{{ $first->title }}</h2>
                         <div class="flex items-center gap-2 my-1">
-                            <h3 class="text-sm font-semibold text-[#007882]">{{ $first->category->name ?? '' }}</h3>
+                            <h3 class="text-sm font-semibold text-[#007882]">{{ $first->categoryDetail->name ?? '' }}</h3>
                             <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
                             <p class="text-xs">{{ $first->author->name ?? 'Admin' }}</p>
                             <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
@@ -41,7 +41,7 @@
                         <div>
                             <h2 class="line-clamp-2 text-sm font-bold text-[#3B4144] mt-2 lg:text-lg">{{ $news->title }}</h2>
                             <div class="flex items-center gap-2 my-1">
-                                <h3 class="text-sm font-semibold text-[#007882]">{{ $news->category->name ?? '' }}</h3>
+                                <h3 class="text-sm font-semibold text-[#007882]">{{ $news->category_deatail->name ?? '' }}</h3>
                                 <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
                                 <p class="text-xs">{{ $news->author-> name ?? 'Admin' }}</p>
                                 <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>

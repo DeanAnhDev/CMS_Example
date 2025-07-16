@@ -11,7 +11,7 @@
                     {{ $article->title }}
                 </h2>
                 <div class="flex items-center gap-2 my-1">
-                    <h3 class="text-sm/[20px] font-semibold text-[#007882]">{{ $article->category->name ?? '' }}</h3>
+                    <h3 class="text-sm/[20px] font-semibold text-[#007882]">{{ $article->categoryDetail->name ?? '' }}</h3>
                     <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
                     <p class="text-xs">{{ $article->author->name ?? 'Admin' }}</p>
                     <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
@@ -35,7 +35,7 @@
                                 {{ $article->title }}
                             </h2>
                             <div class="flex items-center gap-2 my-1">
-                                <h3 class="text-sm/[27px] font-semibold text-[#007882]">{{ $article->category->name ?? '' }}</h3>
+                                <h3 class="text-sm/[27px] font-semibold text-[#007882]">{{ $article->categoryDetail->name ?? '' }}</h3>
                                 <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>
                                 <p class="text-xs">{{ $article->author->name ?? 'Admin' }}</p>
                                 <span class="w-[3px] h-[3px] bg-[#3B4144] rounded-full"></span>

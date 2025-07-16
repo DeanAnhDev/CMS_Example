@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Articles;
+use App\Models\Categories;
 use App\Models\CategoryDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -46,10 +47,11 @@ class ArticlesController extends Controller
     public function show($slug)
     {
         $article = Articles::where('slug', $slug)
-            ->with(['categoryDetail.category', 'author'])
+            ->with(['categoryDetail', 'author'])
             ->firstOrFail();
 
         $relatedArticles = Articles::where('category_detail_id', $article->category_detail_id)
+
             ->where('id', '!=', $article->id)
             ->where('status', 'published')
             ->latest()
@@ -102,6 +104,22 @@ class ArticlesController extends Controller
     public function showDetail(Articles $article)
     {
         return view('articles.show', compact('article'));
+    }
+
+    public function home()
+    {
+        $categories = Categories::all();
+        $articles = Articles::with('categoryDetail')
+            ->where('status', 'published')
+            ->latest()
+            ->paginate(10);
+
+        $news = Articles::with('categoryDetail')
+            ->where('status', 'published')
+            ->latest()
+            ->take(3)
+            ->get();
+        return view('client.home', compact('categories', 'articles', 'news'));
     }
 
 }

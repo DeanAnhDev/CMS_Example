@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Articles;
 use App\Models\Categories;
 use App\Models\CategoryDetail;
 use Illuminate\Http\Request;
@@ -79,5 +80,20 @@ class CategoryDetailController extends Controller
         $categoryDetail->delete();
 
         return redirect()->route('category_detail.index')->with('success', 'Deleted successfully!');
+    }
+
+    public function showCategoryDetailArticles($categorySlug ,$slug)
+    {
+        // Tìm CategoryDetail theo slug
+        $categoryDetail = CategoryDetail::where('slug', $slug)->firstOrFail();
+
+        // Lấy danh sách bài viết thuộc category_detail_id và status là published
+        $articles = Articles::with('author')
+            ->where('category_detail_id', $categoryDetail->id)
+            ->where('status', 'published')
+            ->latest()
+            ->paginate(10);
+
+        return view('client.category_detail_articles', compact('categoryDetail', 'articles'));
     }
 }

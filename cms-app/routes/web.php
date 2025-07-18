@@ -33,7 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [ArticlesController::class, 'home'])->name('client.home');
     Route::get('/bai-viet/{slug}', [ArticlesController::class, 'show'])->name('client.detail');
     Route::get('/chuyen-muc/{slug}', [CategoriesController::class, 'showDetail'])->name('client.category.show');
+    Route::get('/danh-muc/{categorySlug}/{detailSlug}', [CategoryDetailController::class, 'showCategoryDetailArticles'])
+        ->name('client.categorydetail.show');
 });
+
 
 
 Route::middleware('auth')->group(function () {

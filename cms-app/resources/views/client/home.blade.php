@@ -32,15 +32,21 @@
             </div>
         </section>
 
+        <section>
+            {{--list post--}}
+            <x-home.list-post :news="$news" class="mb-10"/>
+        </section>
 
-        {{--list post--}}
-        <x-home.list-post :news="$news" />
+        <section>
+            {{-- Video       --}}
+            <x-home.video class="mt-10 pt-10"/>
+        </section>
 
-        {{-- Video       --}}
-        <x-home.video/>
+        <section>
+            {{-- Trang home hoặc danh sách --}}
+            <x-home.post :articles="$articles" />
+        </section>
 
-        {{-- Trang home hoặc danh sách --}}
-        <x-home.post :articles="$articles" />
 
 
     </div>

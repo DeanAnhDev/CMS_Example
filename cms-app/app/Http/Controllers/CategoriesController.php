@@ -89,13 +89,9 @@ class CategoriesController extends Controller
 
         $category = Categories::where('slug', $slug)->firstOrFail();
 
-        $articles = Articles::with(['category', 'author'])
-            ->where('category_id', $category->id)
-            ->where('status', 'published')
-            ->latest()
-            ->paginate(10);
+        $categoryDetails = $category->categoryDetails()->get();
 
-        return view('client.categorydetail', compact('category', 'articles'));
+        return view('client.categorydetail', compact('category', 'categoryDetails'));
     }
 
 

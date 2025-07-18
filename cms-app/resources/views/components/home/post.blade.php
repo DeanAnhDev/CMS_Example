@@ -1,4 +1,4 @@
-<section id="news" class="mx-auto lg:mx-auto">
+<section id="news" class="mx-auto lg:mx-auto mb-10">
     <div class="font-custom font-semibold text-sm/[21px] mb-4 w-[90%] mx-auto mt-6 xl:w-[1024px]">
         <h2>Danh sách tin</h2>
     </div>
